@@ -6,92 +6,18 @@ import java.lang.NumberFormatException
 
 lateinit var input : List<String>
 val noSymbol = listOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".")
-
 val stars = mutableMapOf<Pair<Int, Int>, MutableList<Int>>()
+var partOneSum = 0
 
 fun main() {
 
-    //537732
-    //84883664
+    val file = File("src/main/kotlin/day03/testinput.txt")
 
-    val file = File("src/main/kotlin/day03/input.txt")
-//    part01(file)
-    part02(file)
-
-
-
-
+    solutions(file)
 
 }
 
-fun part01(file: File) {
-
-    input = file.bufferedReader().readText().split("\n")
-
-    var sum = 0
-
-    for (row in input.indices) {
-
-        val line = input[row]
-
-        var numberString  = ""
-        var hasSymbol = false
-
-        for (col in line.indices) {
-
-            val s = line[col].toString()
-
-            try {
-                s.toInt()
-                numberString += s
-                if (!hasSymbol)
-                    hasSymbol = checkNeighboursForSymbols(col, row)
-
-
-            } catch (_: NumberFormatException) {
-
-                if (numberString.isNotEmpty() && hasSymbol) {
-                    val number = numberString.toInt()
-                    sum += number
-                    hasSymbol = false
-                }
-                numberString = ""
-            }
-        }
-
-        if (numberString.isNotEmpty() && hasSymbol) {
-            val number = numberString.toInt()
-            sum += number
-        }
-
-
-    }
-
-    println("Part 01:  $sum")
-
-
-
-}
-
-fun checkNeighboursForSymbols(x : Int, y : Int) : Boolean {
-
-    for (row in y-1 ..y + 1) {
-        for (col in x -1 .. x + 1) {
-            if (row < 0 || col < 0 || row >= input.size || col >= input[row].length )
-                continue
-            val s = input[row][col].toString()
-            if (s !in noSymbol) {
-                return true
-            }
-        }
-
-    }
-
-    return false
-}
-
-
-fun part02(file: File) {
+fun solutions(file: File) {
 
     input = file.bufferedReader().readText().split("\n")
 
@@ -113,46 +39,73 @@ fun part02(file: File) {
 
             } catch (_: NumberFormatException) {
 
-                if (numberString.isNotEmpty()) {
-                    val number = numberString.toInt()
-                    checkNbsForStars(nbs, number)
-                    numberString = ""
-                    nbs.clear()
-                }
+                handleNumberString(numberString, nbs)
+                numberString = ""
+                nbs.clear()
 
             }
         }
 
-        if (numberString.isNotEmpty()) {
-            val number = numberString.toInt()
-            checkNbsForStars(nbs, number)
-        }
+        handleNumberString(numberString, nbs)
 
 
     }
 
-    val result = stars
+    println("Part 01: $partOneSum")
+
+    val partTwoResult = stars
         .filter { it.value.size == 2}
         .map { it.value[0] * it.value[1] }
         .sum()
 
-    println("Part 02:  $result")
+    println("Part 02: $partTwoResult")
+
+}
+
+fun handleNumberString(s : String, nbs : Set<Pair<Int, Int>>) {
+
+    if (s.isNotEmpty()) {
+        val number = s.toInt()
+
+        val star = checkNbsForStars(nbs)
+        star?.let {
+            stars.putIfAbsent(it, mutableListOf())
+            stars[it]!!.add(number)
+        }
+        if (checkNbsForSymbols(nbs)) {
+            partOneSum += number
+        }
+    }
+
 
 
 }
 
-fun checkNbsForStars(nbs : Set<Pair<Int, Int>>, number : Int) {
+fun checkNbsForStars(nbs : Set<Pair<Int, Int>>) : Pair<Int, Int>? {
 
     for (nb in nbs) {
 
         val s = input[nb.second][nb.first].toString()
-        if (s == "*") {
-            stars.putIfAbsent(nb, mutableListOf())
-            stars[nb]!!.add(number)
+        if (s == "*")
+            return nb
+
+    }
+
+    return null
+}
+
+fun checkNbsForSymbols(nbs : Set<Pair<Int, Int>>) : Boolean{
+
+    for (nb in nbs) {
+
+        val s = input[nb.second][nb.first].toString()
+        if (s !in noSymbol) {
+            return true
         }
 
     }
 
+    return false
 
 }
 
@@ -173,4 +126,3 @@ fun getNeighbours(x : Int, y : Int) : List<Pair<Int, Int>> {
     return result
 
 }
-
