@@ -7,3 +7,4 @@
 - [Day 4: Scratchcards](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day04/Day04.kt)
 - [Day 5: If You Give A Seed A Fertilizer](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day05/Day05.kt)
 - [Day 6: Wait For It](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day06/Day06.kt)
+- [Day 7: Camel Cards](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day07/Day07.kt)
