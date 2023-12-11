@@ -7,7 +7,8 @@ fun main() {
 
     val input = readInput(File("src/main/kotlin/day09/input.txt"))
 
-    var sum = 0
+    var sum01 = 0
+    var sum02 = 0
 
     for (line in input) {
 
@@ -16,19 +17,26 @@ fun main() {
         for (i in sequences.indices.reversed()) {
 
             val sequence = sequences[i]
-            if (i == sequences.size - 1)
+            if (i == sequences.size - 1) {
                 sequence.add(0)
-            else
+                sequence.add(0,0)
+            }
+            else{
                 sequence.add(sequence.last() + sequences[i + 1].last())
+                sequence.add(0, sequence.first() - sequences[i + 1].first())
+            }
+
 
         }
 
-        sum += sequences[0].last()
+        sum01 += sequences[0].last()
+        sum02 += sequences[0].first()
 
 
     }
 
-    println("Part01 sum: $sum")
+    println("Part01 sum: $sum01")
+    println("Part02 sum: $sum02")
 
 }
 
