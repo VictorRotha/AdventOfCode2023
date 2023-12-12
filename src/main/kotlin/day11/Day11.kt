@@ -11,8 +11,81 @@ fun main() {
 
     val input = file.bufferedReader().readLines()
 
-    val expanded = expand(input)
+    partOne(input)
+    partTwo(input)
 
+}
+
+
+fun partTwo(input: List<String>) {
+
+    val galaxies : MutableList<Point> = mutableListOf()
+    val emptyRows : MutableList<Int> = mutableListOf()
+    val emptyCols : List<Int> = getEmptyCols(input)
+
+    for (row in input.indices) {
+
+        if (!input[row].contains('#'))
+            emptyRows.add(row)
+
+        for (col in input[row].indices)
+            if (input[row][col] == '#')
+                galaxies.add(Point(col, row))
+    }
+
+    var distances = 0L
+    var multiplier = 0
+
+    for (i in galaxies.indices)
+
+        for (j in i + 1..<galaxies.size) {
+
+            val start = galaxies[i]
+            val target = galaxies[j]
+            distances += start.manhattenDistance(target)
+
+            for (col in emptyCols) {
+                if ((target.x > start.x && col in start.x..target.x) ||
+                    (target.x < start.x && col in target.x..start.x)
+                )
+                    multiplier++
+
+            }
+
+            for (row in emptyRows) {
+                if ((target.y > start.y && row in start.y..target.y) ||
+                    (target.y < start.y && row in target.y..start.y)
+                )
+                    multiplier++
+            }
+
+        }
+
+    val factor = 1000000L
+    distances += (factor - 1) * multiplier
+
+    println("Part 02 distances $distances")
+
+
+}
+
+fun getEmptyCols(input: List<String>): List<Int> {
+
+    val emptyCols : MutableList<Int> = mutableListOf()
+
+    for (col in 0 ..< input[0].length)
+        if (input.none { line -> line[col] == '#' })
+            emptyCols.add(col)
+
+    return emptyCols
+
+}
+
+
+
+fun partOne(input : List<String>) {
+
+    val expanded = expand(input)
 
     val galaxies : MutableList<Point> = mutableListOf()
 
@@ -21,19 +94,13 @@ fun main() {
             if (expanded[row][col] == '#')
                 galaxies.add(Point(col, row))
 
-    var paths = 0
     var distances = 0
 
     for (i in galaxies.indices)
-        for (j in i+1 ..< galaxies.size) {
-            paths++
+        for (j in i+1 ..< galaxies.size)
             distances += galaxies[i].manhattenDistance(galaxies[j])
 
-        }
-
-    println("number of paths $paths")
-    println("distances $distances")
-
+    println("Part 01 distances $distances")
 
 }
 
@@ -64,7 +131,6 @@ fun expand(input: List<String>): List<String> {
         }
 
     }
-
 
     return result
 
