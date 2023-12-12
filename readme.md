@@ -10,3 +10,5 @@
 - [Day 7: Camel Cards](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day07/Day07.kt)
 - [Day 8: Haunted Wasteland (Part One)](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day08/Day08.kt)
 - [Day 9: Mirage Maintenance](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day09/Day09.kt)
+- [Day 10: Pipe Maze (Part One)](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day10/Day10.kt)
+- [Day 11: Day 11: Cosmic Expansion](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day11/Day11.kt)
