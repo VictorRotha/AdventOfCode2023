@@ -7,21 +7,16 @@ fun main() {
 
     val file = File("src/main/kotlin/day13/input.txt")
 
-    partOne(file)
-
-
-}
-
-fun partOne(file: File) {
-
     var pattern : MutableList<String> = mutableListOf()
 
-    var result = 0
+    var resultPartOne = 0
+    var resultPartTwo = 0
 
     file.bufferedReader().forEachLine {line ->
 
         if (line.isEmpty()) {
-            result += processPattern(pattern)
+            resultPartOne += findNewMirror(pattern, -1, -1)
+            resultPartTwo += processPatternPartTwo(pattern)
             pattern = mutableListOf()
             return@forEachLine
         }
@@ -30,28 +25,56 @@ fun partOne(file: File) {
 
     }
 
-    if (pattern.isNotEmpty())
-        result += processPattern(pattern)
+    if (pattern.isNotEmpty()) {
+        resultPartOne += processPatternPartOne(pattern)
+        resultPartTwo += processPatternPartTwo(pattern)
+    }
 
-    println("Part 01: $result")
+
+    println("Part 01: $resultPartOne")
+    println("Part 02: $resultPartTwo")
+
 
 }
 
-fun processPattern(pattern : List<String>) : Int {
+fun processPatternPartOne(pattern: MutableList<String>) = findNewMirror(pattern, -1, -1)
 
-    var result = 0
 
-    val h = findHorizontalMirror(pattern)
+fun processPatternPartTwo(pattern: MutableList<String>): Int {
 
-    if (h != -1 )
-        result += h * 100
-    else
-        result = findVerticalMirror(pattern)
+    for (row in pattern.indices)
+        for (col in pattern[row].indices) {
 
-    return result
+            val newPattern = pattern.map { it.toCharArray() }
+
+            newPattern[row][col] = if (newPattern[row][col] == '.') '#' else '.'
+
+            val oldH = findNewHorizontalMirror(pattern, -1)
+            val oldV = findNewVerticalMirror(pattern, -1)
+            val temp = findNewMirror(newPattern.map {String(it)}, oldH, oldV)
+
+            if (temp != -1) {
+                return temp
+            }
+
+        }
+
+    return -1
+
 }
 
-fun findVerticalMirror(pattern: List<String>) : Int {
+
+fun findNewMirror(pattern: List<String>, oldH: Int, oldV: Int) : Int {
+
+    val h = findNewHorizontalMirror(pattern, oldH)
+
+    return if (h != -1 ) h * 100  else  findNewVerticalMirror(pattern, oldV)
+
+}
+
+
+fun findNewVerticalMirror(pattern: List<String>, old : Int) : Int {
+
     var isMirror : Boolean
 
     val w = pattern[0].length
@@ -61,7 +84,7 @@ fun findVerticalMirror(pattern: List<String>) : Int {
         val key = getColKey(i, pattern)
         val nextKey = getColKey(i + 1, pattern)
 
-        if (key == nextKey) {
+        if (key == nextKey && i+1 != old) {
 
             val range = i.coerceAtMost(w - i - 2)
 
@@ -74,13 +97,15 @@ fun findVerticalMirror(pattern: List<String>) : Int {
             }
 
             if (isMirror) {
-                return i + 1
+                return(i + 1)
+
             }
         }
     }
 
     return -1
 }
+
 
 fun getColKey(col: Int, pattern: List<String>) : String {
     val sb = StringBuilder()
@@ -90,7 +115,8 @@ fun getColKey(col: Int, pattern: List<String>) : String {
     return sb.toString()
 }
 
-fun findHorizontalMirror(pattern: List<String>) : Int {
+
+fun findNewHorizontalMirror(pattern: List<String>, old: Int) : Int {
 
     var isMirror : Boolean
     for (i in 0 ..< pattern.size - 1) {
@@ -98,7 +124,7 @@ fun findHorizontalMirror(pattern: List<String>) : Int {
         val line = pattern[i]
         val nextLine = pattern[i + 1]
 
-        if (line == nextLine) {
+        if (line == nextLine && i + 1 != old) {
 
             val range = i.coerceAtMost(pattern.size - i - 2)
 
@@ -112,7 +138,6 @@ fun findHorizontalMirror(pattern: List<String>) : Int {
 
             if (isMirror) {
                 return i + 1
-
             }
 
         }
@@ -121,7 +146,5 @@ fun findHorizontalMirror(pattern: List<String>) : Int {
 
     return -1
 
-
-
-
 }
+

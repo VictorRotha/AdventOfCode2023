@@ -12,7 +12,6 @@
 - [Day 9: Mirage Maintenance](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day09/Day09.kt)
 - [Day 10: Pipe Maze (Part One)](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day10/Day10.kt)
 - [Day 11: Cosmic Expansion](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day11/Day11.kt)
-- [aDy 12: Hot Springs (Part One)](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day12/Day12.kt)
-- Day 13: Point of Incidence
+- [Day 12: Hot Springs (Part One)](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day12/Day12.kt)
+- [Day 13: Point of Incidence](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day13/Day13.kt)
 - [Day 14: Parabolic Reflector Dish](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day14/Day14.kt)
-- 
