@@ -15,3 +15,4 @@
 - [Day 12: Hot Springs (Part One)](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day12/Day12.kt)
 - [Day 13: Point of Incidence](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day13/Day13.kt)
 - [Day 14: Parabolic Reflector Dish](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day14/Day14.kt)
+- [Day 15: Lens Library](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day15/Day15.kt)
