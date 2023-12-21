@@ -8,8 +8,45 @@ fun main() {
 
     val input = file.bufferedReader().readLines()
 
+    partOne(input)
+    partTwo(input)
+
+}
+
+fun partOne(input: List<String>) {
+
+    val result = findEnergized(input, Node(0,0,-1, 0))
+    println("Part 01: $result")
+}
+
+fun partTwo(input: List<String>) {
+
+    val w = input[0].length
+    val h = input.size
+
+    var result = 0
+
+    for (row in input.indices) {
+
+        result = result.coerceAtLeast(findEnergized(input, Node(0, row, -1, row)))
+        result = result.coerceAtLeast(findEnergized(input, Node(w - 1, row, w, row)))
+
+    }
+
+    for (col in 0 ..< w) {
+
+        result = result.coerceAtLeast(findEnergized(input, Node(col, 0, col, -1)))
+        result = result.coerceAtLeast(findEnergized(input, Node(col, h - 1, col, h )))
+
+    }
+
+    println("Part 02: $result")
+
+}
+
+fun findEnergized(input: List<String>, startNode: Node) : Int {
     var heads : MutableSet<Node> = mutableSetOf()
-    heads.add(Node(0, 0, -1, 0))
+    heads.add(startNode)
     val path : MutableSet<Node> = mutableSetOf()
     path.addAll(heads)
 
@@ -98,8 +135,7 @@ fun main() {
 
     }
 
-    println("Part 01: ${countPath(path)}")
-
+    return countPath(path)
 
 }
 
@@ -124,27 +160,6 @@ fun countPath(path: Set<Node>) : Int {
     }
 
     return result.size
-
-}
-
-fun printPath(grid: List<String>, path: Set<Node>) {
-
-    val result : MutableList<CharArray> = mutableListOf()
-
-    for (line in grid)
-        result.add(line.toCharArray())
-
-    for (node in path) {
-        result[node.y][node.x] = '#'
-    }
-
-    for (line in result) {
-        for (c in line) {
-            print(c)
-        }
-        println()
-    }
-
 
 }
 

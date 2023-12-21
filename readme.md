@@ -16,3 +16,4 @@
 - [Day 13: Point of Incidence](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day13/Day13.kt)
 - [Day 14: Parabolic Reflector Dish](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day14/Day14.kt)
 - [Day 15: Lens Library](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day15/Day15.kt)
+- [Day 16: The Floor Will Be Lava](https://github.com/VictorRotha/AdventOfCode2023/blob/master/src/main/kotlin/day16/Day16.kt)
